@@ -1,2 +1,16 @@
-# bayes-vis-paper
-Paper: "Visualization in Bayesian workflow"
+## Visualization in Bayesian workflow
+
+Materials for the paper **_Visualization in Bayesian workflow_**    
+
+* Authors: Jonah Gabry, Daniel Simpson, Aki Vehtari, Michael Betancourt, Andrew Gelman
+
+* arXiv preprint available at https://arxiv.org/pdf/1709.01449.pdf
+
+### Repository contents
+
+* `bayes-vis.pdf`: Latest draft of the paper as PDF.
+* `bayes-vis.tex`: Main tex file for the paper.
+* `bayes-vis.R`: R code for fitting the models and making plots.
+* `bayes-vis.RData`: Contains data needed in `bayes-vis.R`.
+* `maps.R`: R code for making maps.
+* `stan` directory: Contains Stan programs needed in `bayes-vis.R`.
