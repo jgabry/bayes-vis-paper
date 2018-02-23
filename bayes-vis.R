@@ -266,23 +266,64 @@ save(file = "stan/stanfits.RData", mod1, mod2, mod3, mod3_diverge)
 # Extract parameter estimates, pointwise log-lik, and posterior predictive draws
 keep_pars <- c("sigma", "beta0", "beta1", "beta0_region", "beta1_region", "tau0", "tau1")
 posterior1 <- as.array(mod1, pars = keep_pars[1:3])
-loglik1 <- as.matrix(mod1, pars = "log_lik")
-yrep1 <- as.matrix(mod1, pars = "log_pm_rep")
-
 posterior2 <- as.array(mod2, pars = keep_pars)
-loglik2 <- as.matrix(mod2, pars = "log_lik")
-yrep2 <- as.matrix(mod2, pars = "log_pm_rep")
-
 posterior3_diverge <- as.array(mod3_diverge, pars = keep_pars)
 posterior3 <- as.array(mod3, pars = keep_pars)
-loglik3 <- as.matrix(mod3, pars = "log_lik")
-yrep3 <- as.matrix(mod3, pars = "log_pm_rep")
 
+
+
+# HMC diagnostics ----------------------------------------------------
+theme_update(axis.text = element_text(size = 20))
+hmc_diagnostics <- nuts_params(mod3_diverge)
+
+# parallel coordinates with divergences
+color_scheme_set("darkgray")
+div_style <- parcoord_style_np(div_color = "green", div_size = 0.15, div_alpha = 0.4)
+
+parcoord <- 
+  mcmc_parcoord(
+    posterior3_diverge,
+    regex_pars = c("tau1", "beta1_region"),
+    size = 0.15,
+    alpha = 0.2,
+    np = hmc_diagnostics,
+    np_style = div_style,
+    transformations = list(tau1 = "log")
+  ) +
+  scale_x_discrete(
+    expand = c(.05, 0),
+    labels = parse(text = c("log(tau[1])", paste0("beta[1][", 1:6,"]")))
+  )
+
+plot(parcoord)
+ggsave(filename = "plots/mcmc_parcoord_divs.png", width = 4.5, height = 3.75)
+
+# scatterplot with divergences
+div_style <- scatter_style_np(div_color = "green", div_size = 2.5, div_alpha = 0.75)
+scatter <- 
+  mcmc_scatter(
+    posterior3_diverge,
+    size = 1.5,
+    alpha = 2/3,
+    pars = c("beta1_region[1]", "tau1"), 
+    transform = list(tau1 = "log"), 
+    np = hmc_diagnostics,
+    np_style = div_style
+  ) + 
+  labs(x = expression(beta[1][1]), y = expression(log(tau[1]))) + 
+  xaxis_title(size = rel(1.25)) + 
+  yaxis_title(size = rel(1.25))
+
+plot(scatter)
+ggsave(filename = "plots/mcmc_scatter_divs.png", width = 4.5, height = 3.75)
 
 # Graphical posterior predictive checks -----------------------------------
+theme_set(bayesplot::theme_default(base_size = 14))
 y <- standata2$log_pm
-samp5 <- sample(nrow(yrep1), 5)
-samp50 <- sample(nrow(yrep1), 50)
+yrep1 <- as.matrix(mod1, pars = "log_pm_rep")
+yrep2 <- as.matrix(mod2, pars = "log_pm_rep")
+yrep3 <- as.matrix(mod3, pars = "log_pm_rep")
+
 samp100 <- sample(nrow(yrep1), 100)
 
 # overlaid densities
@@ -367,6 +408,9 @@ ggsave(filename = "plots/ppc_med_grouped3.png", height = 3, width = 7)
 
 
 # LOO-PIT plots ----------------------------------------------------------
+loglik1 <- as.matrix(mod1, pars = "log_lik")
+loglik2 <- as.matrix(mod2, pars = "log_lik")
+loglik3 <- as.matrix(mod3, pars = "log_lik")
 loo1 <- loo(loglik1)
 loo2 <- loo(loglik2)
 loo3 <- loo(loglik3)
@@ -468,53 +512,6 @@ ggsave(filename = "plots/loo_elpd_diff_23.png", width = 4.5, height = 3.75)
 
 
 
-# HMC diagnostics ----------------------------------------------------
-
-draws <- as.array(mod3_diverge)
-hmc_diagnostics <- nuts_params(mod3_diverge)
-
-# parallel coordinates with divergences
-color_scheme_set("darkgray")
-theme_update(axis.text = element_text(size = 20))
-div_style <- parcoord_style_np(div_color = "green", div_size = 0.15, div_alpha = 0.4)
-
-parcoord <- 
-  mcmc_parcoord(
-    draws,
-    regex_pars = c("tau1", "beta1_region"),
-    size = 0.15,
-    alpha = 0.2,
-    np = hmc_diagnostics,
-    np_style = div_style,
-    transformations = list(tau1 = "log")
-  ) +
-  scale_x_discrete(
-    expand = c(.05, 0),
-    labels = parse(text = c("log(tau[1])", paste0("beta[1][", 1:6,"]")))
-  )
-
-plot(parcoord)
-ggsave(filename = "plots/mcmc_parcoord_divs.png", width = 4.5, height = 3.75)
-
-# scatterplot with divergences
-div_style <- scatter_style_np(div_color = "green", div_size = 2.5, div_alpha = 0.75)
-scatter <- 
-  mcmc_scatter(
-    draws,
-    size = 1.5,
-    alpha = 2/3,
-    pars = c("beta1_region[1]", "tau1"), 
-    transform = list(tau1 = "log"), 
-    np = hmc_diagnostics,
-    np_style = div_style
-  ) + 
-  labs(x = expression(beta[1][1]), y = expression(log(tau[1]))) + 
-  xaxis_title(size = rel(1.25)) + 
-  yaxis_title(size = rel(1.25))
-
-plot(scatter)
-ggsave(filename = "plots/mcmc_scatter_divs.png", width = 4.5, height = 3.75)
-
 
 
 # Code for supplementary material ---------------------------------------
@@ -534,7 +531,7 @@ schools_diagnostics <- nuts_params(schools_mod)
 color_scheme_set("darkgray")
 theme_update(axis.text = element_text(size = 20))
 div_style <- parcoord_style_np(div_color = "green", div_size = 0.15, div_alpha = 0.4)
-parcoord <-
+parcoord_schools <-
   mcmc_parcoord(
     schools_draws,
     size = 0.15,
@@ -547,12 +544,12 @@ parcoord <-
     labels = parse(text = dimnames(schools_draws)[[3]])
   )
 
-plot(parcoord)
+plot(parcoord_schools)
 ggsave(filename = "plots/mcmc_parcoord_divs_8school.png", width = 4.5, height = 3.75)
 
 # scatterplot with divergences
 div_style <- scatter_style_np(div_color = "green", div_size = 2.5, div_alpha = 0.75)
-scatter <-
+scatter_schools <-
   mcmc_scatter(
     schools_draws,
     size = 1.5,
@@ -566,6 +563,6 @@ scatter <-
   xaxis_title(size = rel(1.25)) +
   yaxis_title(size = rel(1.25))
 
-plot(scatter)
+plot(scatter_schools)
 ggsave(filename = "plots/mcmc_scatter_divs_8school.png", width = 4.5, height = 3.75)
 
