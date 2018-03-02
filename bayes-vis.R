@@ -192,7 +192,7 @@ tau1 <- abs(rnorm(1, 0, 1))
 sigma <- abs(rnorm(1, 0, 1))
 beta0i <- rnorm(8, 0, tau0)
 beta1i <- rnorm(8, 0, tau1)
-beta0 <- rnorm(1, 1, 1)
+beta0 <- rnorm(1, 0, 1)
 beta1 <- rnorm(1, 1, 1)
 
 data2 <- data.frame(

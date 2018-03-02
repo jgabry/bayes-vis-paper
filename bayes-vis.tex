@@ -263,14 +263,15 @@ coefficients. Further calibration covariates can also be included.
 \label{fig:prior_pred_compare}
 \end{subfigure}
 
-\caption{\it Visualizing the prior predictive distribution. Panels (a) and (b)
-show realizations from the prior predictive distribution using vague priors and
-weakly informative priors, respectively. Simulated data are plotted on the
-$y$-axis and observed data on the $x$-axis. Because the simulations under the
-vague and weakly informative priors are so different, the $y$-axis scales used
-in panels (a) and (b) also differ dramatically. Panel (c) emphasizes the
-difference in the simulations by showing the red points from (a) and the black
-points from (b) plotted using the same $y$-axis.}
+\caption{\it Visualizing the prior predictive distribution. 
+Panels (a) and (b) show realizations from the prior predictive distribution using 
+priors for the $\beta$'s and $\tau$'s that are vague and weakly informative, 
+respectively. The same $N_+(0,1)$ prior is used for $\sigma$ in both cases. 
+Simulated data are plotted on the $y$-axis and observed data on the $x$-axis. 
+Because the simulations under the vague and weakly informative priors are so different, 
+the $y$-axis scales used in panels (a) and (b) also differ dramatically. 
+Panel (c) emphasizes the difference in the simulations by showing the 
+red points from (a) and the black points from (b) plotted using the same $y$-axis.}
 \label{fig:prior_pred}
 \end{figure}
 
@@ -308,9 +309,9 @@ multivariate structure of the distribution.
 
 To demonstrate the power of this approach, we return to the multilevel model for
 the \PM\ data. Mathematically, the model will look like
-$y_{ij} \sim\mbox{N}(\beta_0 + \beta_{0j} + (\beta_1 + \beta_{1j}) x_{ij}, \sigma^2), \
-\beta_{0j}  \sim \mbox{N}(0, \tau_0^2), \
-\beta_{1j} \sim \mbox{N}(0, \tau_1^2),$
+$$y_{ij} \sim N\left(\beta_0 + \beta_{0j} + (\beta_1 + \beta_{1j}) \, x_{ij}, \, \sigma^2\right),$$ 
+$$\beta_{0j}  \sim N\left(0, \tau_0^2\right), $$
+$$\beta_{1j} \sim N\left(0, \tau_1^2\right),$$
 where $y_{ij}$ is the logarithm of the observed \PM, $x_{ij}$ is the logarithm
 of the estimate from the satellite model, $i$ ranges over the observations in
 each super-region, $j$ ranges over the super-regions, and $\sigma$, $\tau_0$,
@@ -737,11 +738,11 @@ concrete suggestions to make the practice of applied statistics more robust.
 \subsection*{Acknowledgements}
 
 The authors thank Gavin Shaddick and Matthew Thomas for their help with the \PM\
-example, Ghazal Fazelnia for finding an error in our map of ground monitor
-locations,  Ari Hartikainen for suggesting the parallel coordinates plot,
+example, Ari Hartikainen for suggesting the parallel coordinates plot, 
+Ghazal Fazelnia for finding an error in our map of ground monitor locations, 
+GitHub user ermeel86 for alerting us to a discrepancy between our text and code, 
 and the Sloan Foundation, Columbia University, U.S. National Science Foundation,
-Institute for Education Sciences, and Office of Naval Research for financial
-support.
+Institute for Education Sciences, and Office of Naval Research for financial support.
 
 
 \bibliographystyle{chicago}
