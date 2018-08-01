@@ -4,6 +4,8 @@ Materials for the paper **_Visualization in Bayesian workflow_**
 
 * Authors: Jonah Gabry, Daniel Simpson, Aki Vehtari, Michael Betancourt, Andrew Gelman
 
+Accepted for publication, _Journal of the Royal Statistical Society, Series A_. 
+
 * arXiv preprint available at https://arxiv.org/pdf/1709.01449.pdf
 
 ### Repository contents
