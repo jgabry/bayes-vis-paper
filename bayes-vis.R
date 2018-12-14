@@ -1,8 +1,9 @@
-# *******************************************
-# This file contains code for fitting models
-# and making figures for the paper 
-# "Visualization in Bayesian workflow"
-# *******************************************
+# **************************************************************
+# This file contains code for fitting models and making figures 
+# for the paper "Visualization in Bayesian workflow" by 
+# Jonah Gabry, Daniel Simpson, Aki Vehtari, Michael Betancourt, 
+# and Andrew Gelman
+# **************************************************************
 
 # Setup -------------------------------------------------------------------
 library(sp)
@@ -227,12 +228,6 @@ ggsave(filename = "plots/prior_pred_compare.png", width = 4.5, height = 3.75)
 
 # Fit Stan models 1, 2, 3 -------------------------------------------------
 
-# Compile Stan programs
-# * simple.stan: simple linear regression (Model 1)
-# * hier.stan: non-centered parameterization of hierarchical model (Model 2, Model 3)
-simple_mod <- stan_model("stan/simple.stan")
-hier_mod <- stan_model("stan/hierarchical.stan")
-
 # Data for model 1
 standata1 <- with(GM@data, list(
   N = length(log_pm25),
@@ -253,6 +248,12 @@ standata2 <- with(GM@data, list(
 standata3 <- standata2
 standata3$R <- length(unique(GM$cluster_region))
 standata3$region <- GM$cluster_region
+
+# Compile Stan programs
+# * simple.stan: simple linear regression (Model 1)
+# * hier.stan: non-centered parameterization of hierarchical model (Model 2, Model 3)
+simple_mod <- stan_model("stan/simple.stan")
+hier_mod <- stan_model("stan/hierarchical.stan")
 
 # Fit the models with Stan
 nuts_controls <- list(max_treedepth = 15, adapt_delta = 0.99)
