@@ -1,12 +1,13 @@
 ## Visualization in Bayesian workflow
 
-Materials for the paper **_Visualization in Bayesian workflow_**    
+This repository contains all materials for the paper **_Visualization in Bayesian workflow_**:    
 
-* Authors: Jonah Gabry, Daniel Simpson, Aki Vehtari, Michael Betancourt, Andrew Gelman
+Gabry, J. , Simpson, D. , Vehtari, A. , Betancourt, M. and Gelman, A. (2019),     
+Visualization in Bayesian workflow. _J. R. Stat. Soc. A_, 182: 389-402. doi:10.1111/rssa.12378
 
-Accepted for publication, _Journal of the Royal Statistical Society, Series A_. 
 
-* arXiv preprint available at https://arxiv.org/pdf/1709.01449.pdf
+* Published version: https://rss.onlinelibrary.wiley.com/doi/full/10.1111/rssa.12378
+* arXiv preprint: https://arxiv.org/pdf/1709.01449.pdf
 
 ### Repository contents
 
