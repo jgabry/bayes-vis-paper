@@ -6,8 +6,9 @@ Gabry, J. , Simpson, D. , Vehtari, A. , Betancourt, M. and Gelman, A. (2019),
 Visualization in Bayesian workflow. _J. R. Stat. Soc. A_, 182: 389-402. doi:10.1111/rssa.12378
 
 
-* Published version: https://rss.onlinelibrary.wiley.com/doi/full/10.1111/rssa.12378
+* Published JRSS version: https://rss.onlinelibrary.wiley.com/doi/full/10.1111/rssa.12378
 * arXiv preprint: https://arxiv.org/pdf/1709.01449.pdf
+* **bayesplot** R package: https://mc-stan.org/bayesplot, https://github.com/stan-dev/bayesplot
 
 ### Repository contents
 
