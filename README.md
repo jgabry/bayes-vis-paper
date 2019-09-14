@@ -7,7 +7,7 @@ Visualization in Bayesian workflow. _J. R. Stat. Soc. A_, 182: 389-402. doi:10.1
 
 
 * Published JRSS version: https://rss.onlinelibrary.wiley.com/doi/full/10.1111/rssa.12378
-* arXiv preprint: https://arxiv.org/pdf/1709.01449.pdf
+* arXiv preprint: https://arxiv.org/pdf/1709.01449.pdf (includes Supplementary Materials in appendix)
 * **bayesplot** R package: https://mc-stan.org/bayesplot, https://github.com/stan-dev/bayesplot
 
 ### Repository contents
