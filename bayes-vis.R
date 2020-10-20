@@ -409,6 +409,36 @@ ggsave(filename = "plots/ppc_med_grouped3.png", height = 3, width = 7)
 
 
 # LOO-PIT plots ----------------------------------------------------------
+
+# NOTE: since the paper came out we have added a function 
+# bayesplot::ppc_loo_pit_overlay() that simplifies the creation of the PIT plots
+# (and also improves the kernel density estimation at the boundaries of the plot).
+# The code here is updated to use the new function. See below for the old code 
+# that was used at the time of writing the paper. 
+
+loglik1 <- as.matrix(mod1, pars = "log_lik")
+loglik2 <- as.matrix(mod2, pars = "log_lik")
+loglik3 <- as.matrix(mod3, pars = "log_lik")
+loo1 <- loo(loglik1, save_psis = TRUE)
+loo2 <- loo(loglik2, save_psis = TRUE)
+loo3 <- loo(loglik3, save_psis = TRUE)
+
+color_scheme_set("blue")
+ppc_loo_pit_overlay(y, yrep1, lw = weights(loo1$psis_object)) + legend_none()
+ggsave(filename = "plots/ppc_loo_pit_overlay1-new.png", width = 4.5, height = 3.75)
+
+color_scheme_set("darkgray")
+ppc_loo_pit_overlay(y, yrep2, lw = weights(loo2$psis_object)) + legend_none()
+ggsave(filename = "plots/ppc_loo_pit_overlay2-new.png", width = 4.5, height = 3.75)
+
+color_scheme_set("red")
+ppc_loo_pit_overlay(y, yrep3, lw = weights(loo3$psis_object)) + legend_none()
+ggsave(filename = "plots/ppc_loo_pit_overlay3-new.png", width = 4.5, height = 3.75)
+
+
+# This is the code that we used when writing the paper before introducing the 
+# ppc_loo_pit_overlay() function
+
 loglik1 <- as.matrix(mod1, pars = "log_lik")
 loglik2 <- as.matrix(mod2, pars = "log_lik")
 loglik3 <- as.matrix(mod3, pars = "log_lik")
