@@ -410,11 +410,11 @@ ggsave(filename = "plots/ppc_med_grouped3.png", height = 3, width = 7)
 
 # LOO-PIT plots ----------------------------------------------------------
 
-# NOTE: since the paper came out we have added a function 
+# NOTE: since the paper came out we have added a function
 # bayesplot::ppc_loo_pit_overlay() that simplifies the creation of the PIT plots
-# (and also improves the kernel density estimation at the boundaries of the plot).
-# The code here is updated to use the new function. See below for the old code 
-# that was used at the time of writing the paper. 
+# (and even more recently also improves the kernel density estimation at the
+# boundaries of the plot). The code here is updated to use the new function. See
+# below for the old code that was used at the time of writing the paper.
 
 loglik1 <- as.matrix(mod1, pars = "log_lik")
 loglik2 <- as.matrix(mod2, pars = "log_lik")
