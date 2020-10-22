@@ -416,12 +416,9 @@ ggsave(filename = "plots/ppc_med_grouped3.png", height = 3, width = 7)
 # boundaries of the plot). The code here is updated to use the new function. See
 # below for the old code that was used at the time of writing the paper.
 
-loglik1 <- as.matrix(mod1, pars = "log_lik")
-loglik2 <- as.matrix(mod2, pars = "log_lik")
-loglik3 <- as.matrix(mod3, pars = "log_lik")
-loo1 <- loo(loglik1, save_psis = TRUE)
-loo2 <- loo(loglik2, save_psis = TRUE)
-loo3 <- loo(loglik3, save_psis = TRUE)
+loo1 <- loo(mod1, save_psis = TRUE)
+loo2 <- loo(mod2, save_psis = TRUE)
+loo3 <- loo(mod3, save_psis = TRUE)
 
 color_scheme_set("blue")
 ppc_loo_pit_overlay(y, yrep1, lw = weights(loo1$psis_object)) + legend_none()
